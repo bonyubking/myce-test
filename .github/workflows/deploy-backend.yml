@@ -50,7 +50,7 @@ jobs:
             cd /home/ec2-user/app
             
             ENV_FILE=/home/ec2-user/app/.env
-            JAR_PATH=/home/ec2-user/app/myapp.jar
+            JAR_PATH=/home/ec2-user/app/myce-0.0.1-SNAPSHOT.jar
             LOG_PATH=/home/ec2-user/app/app.log
       
             export $(grep -v '^#' "$ENV_FILE" | xargs)
