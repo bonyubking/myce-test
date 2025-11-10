@@ -20,6 +20,7 @@ public class CorsConfig {
                 "https://www.myce.live",
                 "https://myce.live",
                 "https://media.myce.live",
+                "https://d331esfp7ch3yz.cloudfront.net",
                 "http://localhost:3000",
                 "http://localhost:5173",
                 "http://localhost:8080",
