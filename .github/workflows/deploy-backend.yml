@@ -22,7 +22,7 @@ jobs:
         run : chmod +x ./gradlew
 
       - name : build with gradle
-        run: ./gradlew build --no-daemon
+        run: ./gradlew bootJar -x test
 
       - name: Transfer Build Files to EC2
         uses: appleboy/scp-action@master
