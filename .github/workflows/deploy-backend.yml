@@ -48,31 +48,7 @@ jobs:
           proxy_key: ${{ secrets.KEY }}
           script: |
             cd /home/ec2-user/app
-            
-            ENV_FILE=/home/ec2-user/app/.env
-            JAR_PATH=/home/ec2-user/app/myce-0.0.1-SNAPSHOT.jar
-            LOG_PATH=/home/ec2-user/app/app.log
-      
-            export $(grep -v '^#' "$ENV_FILE" | xargs)
-            
-            PID=$(pgrep -f $JAR_PATH)
-            if [ -n "$PID" ]; then
-            echo "> Stopping existing process ($PID)..."
-            kill -9 $PID
-            sleep 2
-            fi
-            
-            nohup java -jar $JAR_PATH --spring.profiles.active=prod > $LOG_PATH 2>&1 &
-            
-            NEW_PID=$!
-            
-            if ps -p $NEW_PID > /dev/null 2>&1; then
-            echo "Application started successfully!"
-            echo "PID: ${NEW_PID}"
-            else
-            echo "Failed to start application."
-            fi
-
+            ./start.sh
             
             
             
