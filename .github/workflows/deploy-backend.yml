@@ -46,11 +46,11 @@ jobs:
           proxy_username: ${{secrets.USER }}
           proxy_key: ${{ secrets.KEY }}
           script: |
-            cd /home/ubuntu/app
+            cd /home/ec2-user/app
             
-            ENV_FILE=/home/ubuntu/app/.env
-            JAR_PATH=/home/ubuntu/app/myapp.jar
-            LOG_PATH=/home/ubuntu/app/app.log
+            ENV_FILE=/home/ec2-user/app/.env
+            JAR_PATH=/home/ec2-user/app/myapp.jar
+            LOG_PATH=/home/ec2-user/app/app.log
       
             export $(grep -v '^#' "$ENV_FILE" | xargs)
             
