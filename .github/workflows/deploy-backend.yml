@@ -24,18 +24,20 @@ jobs:
       - name : build with gradle
         run: ./gradlew bootJar -x test
 
-      - name: Transfer Build Files to EC2
-        uses: appleboy/scp-action@master
-        with :
-          host: ${{ secrets.PRIVATE_HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.KEY }}
-          proxy_host: ${{ secrets.HOST }}
-          proxy_username: ${{secrets.USER }}
-          proxy_key: ${{ secrets.KEY }}
-          source: "build/libs/myce-0.0.1-SNAPSHOT.jar"
-          target: "/home/ec2-user/app"
-          strip_components: 2
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_ID }}
+          password: ${{ secrets.DOCKER_KEY }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ secrets.DOCKER_ID }}/bon:latest
 
       - name : deploy test with github actions
         uses : appleboy/ssh-action@v0.1.6
@@ -48,7 +50,11 @@ jobs:
           proxy_key: ${{ secrets.KEY }}
           script: |
             cd /home/ec2-user/app
-            ./start.sh
+            sudo docker-compose stop
+            sudo docker-compose rm -f
+            sudo docker rmi bonyubgu/bon:latest
+            sudo docker-compose up -d
+
             
             
             
