@@ -33,6 +33,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         
         registry.addEndpoint("/ws/chat")
                 .setAllowedOrigins(
+                        "https://d331esfp7ch3yz.cloudfront.net",
                         "https://www.myce.live",
                         "https://myce.live", 
                         "https://media.myce.live",
