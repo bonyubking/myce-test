@@ -42,7 +42,7 @@ jobs:
       - name: Trigger Ansible
         run: gh api -X POST /repos/bonyubking/terraform-ansible-bon/dispatches -f event_type='ansible_event'
         env: 
-          GH_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}    
+          GH_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}    
 
 
 
